@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		1BAECCCE2DA1D7A400610245 /* MessageKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1BAECCCD2DA1D7A400610245 /* MessageKit */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		1BA8C6CD2DA15F1E00D7B67D /* Communicator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Communicator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BAECCCE2DA1D7A400610245 /* MessageKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +83,7 @@
 			);
 			name = Communicator;
 			packageProductDependencies = (
+				1BAECCCD2DA1D7A400610245 /* MessageKit */,
 			);
 			productName = Communicator;
 			productReference = 1BA8C6CD2DA15F1E00D7B67D /* Communicator.app */;
@@ -107,6 +113,9 @@
 			);
 			mainGroup = 1BA8C6C42DA15F1E00D7B67D;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				1BAECCCC2DA1D7A400610245 /* XCRemoteSwiftPackageReference "MessageKit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 1BA8C6CE2DA15F1E00D7B67D /* Products */;
 			projectDirPath = "";
@@ -333,6 +342,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1BAECCCC2DA1D7A400610245 /* XCRemoteSwiftPackageReference "MessageKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MessageKit/MessageKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1BAECCCD2DA1D7A400610245 /* MessageKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1BAECCCC2DA1D7A400610245 /* XCRemoteSwiftPackageReference "MessageKit" */;
+			productName = MessageKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1BA8C6C52DA15F1E00D7B67D /* Project object */;
 }
