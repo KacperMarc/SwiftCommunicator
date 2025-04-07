@@ -8,4 +8,5 @@ import Foundation
 
 struct Keys {
     static let isDarkmode = "isDarkmode"
+    static let username = "username"
 }

@@ -3,17 +3,25 @@ import InputBarAccessoryView
 import UIKit
 
 class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate, InputBarAccessoryViewDelegate {
-
+    @MainActor required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    init(){
+        self.senderId = UserDefaults.standard.string(forKey: "username") ?? UUID().uuidString
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    
+    
+    private var senderId: String
+    private let webSocket = WebSocket()
     var currentSender: SenderType {
-        Sender(senderId: "self", displayName: "Byczek")
+        //bedzie sender name z user defaults
+        Sender(senderId: senderId , displayName: "Byczek")
+        
     }
-    
-    var otherSender: SenderType {
-        Sender(senderId: "other", displayName: "PatoDev")
-    }
-    
     var messages = [MessageType]()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMessageKit()
@@ -48,18 +56,53 @@ class ChatViewController: MessagesViewController, MessagesDataSource, MessagesLa
     }
 
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
-        let newMessage = Message(sender: currentSender, messageId: UUID().uuidString, sentDate: Date(), kind: .text(text))
-        messages.append(newMessage)
-        messagesCollectionView.reloadData()
-        inputBar.inputTextView.text = ""
+       
+        
+        var protoMessage = MessageProto()
+        protoMessage.senderID = currentSender.senderId
+        protoMessage.senderName = currentSender.displayName
+        protoMessage.messageID = UUID().uuidString
+        protoMessage.sentDate = Int64(Date().timeIntervalSince1970)
+        protoMessage.text = text
+        
+        do {
+            let data = try protoMessage.serializedData()
+            Task {
+                do {
+                    print(data)
+                    await webSocket.sendMessage(data)
+                    inputBar.inputTextView.text = ""
+                    inputBar.invalidatePlugins()
+                }
+            }
+        }
+        catch {
+            print("blad serializacji danych: \(error)")
+        }
+        
+        
     }
 
     private func loadMessages() {
-        messages.append(Message(sender: currentSender, messageId: "1", sentDate: Date().addingTimeInterval(-100), kind: .text("Elo byczek")))
-        messages.append(Message(sender: otherSender, messageId: "2", sentDate: Date().addingTimeInterval(-200), kind: .text("snajper snajper")))
-        messages.append(Message(sender: currentSender, messageId: "3", sentDate: Date().addingTimeInterval(-300), kind: .text("byczek byczek")))
-        messages.append(Message(sender: otherSender, messageId: "4", sentDate: Date().addingTimeInterval(-400), kind: .text("json json")))
-        messagesCollectionView.reloadData()
+        webSocket.connect()
+        webSocket.onMessageReceived = { [weak self] protoMessage in
+               guard let self = self else { return }
+               
+               let sender = Sender(senderId: protoMessage.senderID, displayName: protoMessage.senderName)
+               
+               let message = Message(
+                   sender: sender,
+                   messageId: protoMessage.messageID,
+                   sentDate: Date(timeIntervalSince1970: TimeInterval(protoMessage.sentDate)),
+                   kind: .text(protoMessage.text)
+               )
+               
+               DispatchQueue.main.async {
+                   self.messages.append(message)
+                   self.messagesCollectionView.reloadData()
+                   self.messagesCollectionView.scrollToLastItem(animated: true)
+               }
+           }
     }
     @objc func updateStyle() {
             let isDark = AppSettings.isDarkmode

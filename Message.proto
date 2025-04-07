@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+message MessageProto {
+  string senderId = 1;
+  string senderName = 2;
+  string messageId = 3;
+  int64 sentDate = 4; // UNIX timestamp
+  string text = 5;
+}

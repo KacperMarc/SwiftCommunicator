@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B33F4E22DA2B81B006C7A63 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 1B33F4E12DA2B81B006C7A63 /* SwiftProtobuf */; };
+		1B33F4E42DA2B81B006C7A63 /* SwiftProtobufPluginLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 1B33F4E32DA2B81B006C7A63 /* SwiftProtobufPluginLibrary */; };
+		1B33F4E62DA2B81B006C7A63 /* protoc-gen-swift in Frameworks */ = {isa = PBXBuildFile; productRef = 1B33F4E52DA2B81B006C7A63 /* protoc-gen-swift */; };
 		1BAECCCE2DA1D7A400610245 /* MessageKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1BAECCCD2DA1D7A400610245 /* MessageKit */; };
 /* End PBXBuildFile section */
 
@@ -40,7 +43,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B33F4E62DA2B81B006C7A63 /* protoc-gen-swift in Frameworks */,
+				1B33F4E42DA2B81B006C7A63 /* SwiftProtobufPluginLibrary in Frameworks */,
 				1BAECCCE2DA1D7A400610245 /* MessageKit in Frameworks */,
+				1B33F4E22DA2B81B006C7A63 /* SwiftProtobuf in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +90,9 @@
 			name = Communicator;
 			packageProductDependencies = (
 				1BAECCCD2DA1D7A400610245 /* MessageKit */,
+				1B33F4E12DA2B81B006C7A63 /* SwiftProtobuf */,
+				1B33F4E32DA2B81B006C7A63 /* SwiftProtobufPluginLibrary */,
+				1B33F4E52DA2B81B006C7A63 /* protoc-gen-swift */,
 			);
 			productName = Communicator;
 			productReference = 1BA8C6CD2DA15F1E00D7B67D /* Communicator.app */;
@@ -115,6 +124,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				1BAECCCC2DA1D7A400610245 /* XCRemoteSwiftPackageReference "MessageKit" */,
+				1B33F4E02DA2B81B006C7A63 /* XCRemoteSwiftPackageReference "swift-protobuf" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 1BA8C6CE2DA15F1E00D7B67D /* Products */;
@@ -344,6 +354,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1B33F4E02DA2B81B006C7A63 /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-protobuf.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.29.0;
+			};
+		};
 		1BAECCCC2DA1D7A400610245 /* XCRemoteSwiftPackageReference "MessageKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/MessageKit/MessageKit";
@@ -355,6 +373,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1B33F4E12DA2B81B006C7A63 /* SwiftProtobuf */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1B33F4E02DA2B81B006C7A63 /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = SwiftProtobuf;
+		};
+		1B33F4E32DA2B81B006C7A63 /* SwiftProtobufPluginLibrary */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1B33F4E02DA2B81B006C7A63 /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = SwiftProtobufPluginLibrary;
+		};
+		1B33F4E52DA2B81B006C7A63 /* protoc-gen-swift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1B33F4E02DA2B81B006C7A63 /* XCRemoteSwiftPackageReference "swift-protobuf" */;
+			productName = "protoc-gen-swift";
+		};
 		1BAECCCD2DA1D7A400610245 /* MessageKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1BAECCCC2DA1D7A400610245 /* XCRemoteSwiftPackageReference "MessageKit" */;

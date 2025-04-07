@@ -17,4 +17,13 @@ class AppSettings {
                 NotificationCenter.default.post(name: .darkModeChanged, object: nil)
             }
         }
+    static var username: String {
+        get {
+            return UserDefaults.standard.string(forKey: Keys.username)!
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: Keys.username)
+            NotificationCenter.default.post(name: .usernameChanged, object: nil)
+        }
+    }
 }
